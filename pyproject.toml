@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fine-tunne-berrutti"
+version = "0.1.0"
+description = "Private Qwen3.8 VLM fine-tuning experiments for Berrutti OCR"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "anyascii==0.3.3",
+  "rapidfuzz>=3.13,<4",
+  "Pillow>=10,<13",
+]
+
+[project.optional-dependencies]
+monitor = ["websockets>=16,<17"]
+dev = ["ruff>=0.12,<0.13"]
+
+[tool.setuptools.packages.find]
+include = ["experiments*"]
+namespaces = true
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
