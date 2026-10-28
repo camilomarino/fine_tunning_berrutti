@@ -1,0 +1,2 @@
+# Preserve generated, audited SVG bytes, including path-command trailing spaces.
+reports/berrutti/figures/*.svg -whitespace

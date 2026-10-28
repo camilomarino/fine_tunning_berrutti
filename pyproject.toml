@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "fine-tunne-berrutti"
 version = "0.1.0"
-description = "Private Qwen3.8 VLM fine-tuning experiments for Berrutti OCR"
+description = "Fine-tuning job preparation for Ruche and ClusterUY, with Berrutti OCR recipes"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -18,9 +18,20 @@ dependencies = [
 monitor = ["websockets>=16,<17"]
 dev = ["ruff>=0.12,<0.13"]
 
+[project.scripts]
+berrutti-data = "data.manage:main"
+archive-berrutti = "archive_berrutti.cli:main"
+
 [tool.setuptools.packages.find]
-include = ["experiments*"]
+include = ["experiments*", "archive_berrutti", "data", "data.preparation", "finetune*", "evaluation", "reporting*"]
 namespaces = true
+
+[tool.setuptools.package-data]
+data = ["catalog.json", "import.sbatch", "*.md", "*/README.md", "berrutti_175/split-v1.json"]
+"data.preparation" = ["README.md"]
+archive_berrutti = ["prepare.sbatch", "*.md"]
+"finetune.recipes.berrutti_qwen38" = ["*.sbatch", "README.md"]
+"reporting.berrutti" = ["web/*.html", "web/*.js", "web/*.css", "web/README.md", "ocr_diff_web/*.js", "ocr_diff_web/*.css"]
 
 [tool.ruff]
 target-version = "py311"

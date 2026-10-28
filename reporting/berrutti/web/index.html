@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Qwen–Berrutti · Entrenamiento y resultados</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#explorer">Ir al explorador</a>
+    <header class="topbar">
+      <a href="./" class="brand" aria-label="Inicio Qwen–Berrutti"><span class="brand-mark" aria-hidden="true">B</span><span>Qwen <span class="brand-dot">/</span> Berrutti</span></a>
+      <div class="publication"><span class="snapshot-dot" aria-hidden="true"></span><span id="snapshotDate">Cargando publicación…</span><a id="manifestLink" class="hidden" href="manifest.json">Manifiesto ↗</a></div>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="title">
+        <div><h1 id="title">Resultados OCR</h1></div>
+        <div class="cohort-facts" aria-label="Conjunto Berrutti"><div><strong>125</strong><span>páginas train</span></div><div><strong>25</strong><span>validación</span></div><div><strong>25</strong><span>test</span></div></div>
+      </section>
+
+      <section aria-labelledby="comparisonTitle" class="comparison-section">
+        <div class="section-heading"><h2 id="comparisonTitle">Las cuatro variantes</h2></div>
+        <div id="methodCards" class="method-grid" aria-label="Modelo seleccionado"></div>
+        <div class="protocol-note"><p id="protocolNote">3 épocas · 16 actualizaciones por época · inicialización común. Selección por validación; test descriptivo.</p></div>
+        <div id="baselineSummary" class="baseline-strip"></div>
+      </section>
+
+      <section id="explorer" class="explorer" aria-labelledby="explorerTitle">
+        <div class="explorer-heading"><h2 id="explorerTitle">Imágenes y transcripciones</h2><span id="methodLabel" class="method-pill"></span></div>
+        <div class="explorer-controls">
+          <div id="splitTabs" class="split-tabs" role="group" aria-label="Partición Berrutti"><button type="button" data-split="train" aria-pressed="false">Entrenamiento <span>125</span></button><button type="button" data-split="validation" aria-pressed="true" class="active">Validación <span>25</span></button><button type="button" data-split="test" aria-pressed="false">Test <span>25</span></button></div>
+          <div class="control-fields"><label id="familyField">Imágenes<select id="familySelect"><option value="pages">Páginas Berrutti</option><option value="lines">Líneas Berrutti</option><option value="synthetic">Páginas sintéticas Berrutti + LUISA</option><option value="luisa">Líneas LUISA</option></select></label><label id="evaluationField">Checkpoint<select id="evaluationSelect"></select></label><label id="syntheticEpochField" class="hidden">Época sintética<select id="syntheticEpochSelect"><option value="">Todas</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></label><label id="columnsField" class="hidden">Composición<select id="columnsSelect"><option value="">Todas</option><option value="1">Una columna</option><option value="2">Dos columnas</option></select></label></div>
+        </div>
+        <p id="contextNote" class="context-note"></p>
+        <div id="evaluationSummary" class="evaluation-summary" aria-live="polite"></div>
+        <div id="exploratoryNote" class="callout amber hidden">Exploratorio: incluye el test LUISA y solapamientos con el test Berrutti. Independencia documental no comprobada.</div>
+        <div id="workspace" class="workspace">
+          <aside class="document-sidebar" aria-label="Documentos">
+            <label class="search-label" for="documentSearch">Buscar imagen</label><input id="documentSearch" type="search" placeholder="Nombre de la imagen…" autocomplete="off">
+            <div class="list-heading"><span id="documentCount">—</span><span id="listRange" class="quiet"></span></div>
+            <div id="documentList" class="document-list"></div>
+            <div class="list-pagination"><button id="listPrevious" type="button" aria-label="Lista anterior">←</button><span id="listPage"></span><button id="listNext" type="button" aria-label="Lista siguiente">→</button></div>
+          </aside>
+
+          <article class="document-view" aria-labelledby="documentTitle">
+            <div class="document-heading"><div><span id="documentKind" class="eyebrow">Página Berrutti</span><h3 id="documentTitle">Seleccioná una imagen</h3></div><div class="document-navigation"><button id="documentPrevious" type="button" title="Imagen anterior" aria-label="Imagen anterior">←</button><button id="documentNext" type="button" title="Imagen siguiente" aria-label="Imagen siguiente">→</button></div></div>
+            <div id="pageStatus" class="page-status" aria-live="polite"></div>
+            <div id="documentLoading" class="empty-state">Cargando catálogo…</div>
+            <div id="documentContent" class="hidden">
+              <div class="reading-grid">
+                <section class="image-panel" aria-label="Imagen del documento">
+                  <div class="panel-heading"><h4>Imagen</h4><div class="image-tools"><button id="zoomOut" type="button" aria-label="Alejar imagen">−</button><output id="zoomValue" aria-live="polite">100 %</output><button id="zoomIn" type="button" aria-label="Acercar imagen">+</button><button id="zoomReset" type="button" title="Ajustar al ancho">Ajustar</button><button id="expandImage" type="button" title="Ampliar imagen" aria-label="Ampliar imagen">⛶</button></div></div>
+                  <label id="boxesField" class="boxes-toggle"><input id="showBoxes" type="checkbox"> Ver cajas de líneas</label>
+                  <div id="imageFrame" class="image-frame"><div id="imageCanvas" class="image-canvas"><img id="pageImage" alt="" decoding="async"><div id="lineBoxes" class="line-boxes"></div></div></div>
+                </section>
+                <section class="transcription-panel" aria-label="Transcripciones">
+                  <div class="panel-heading"><h4>Transcripciones</h4><div class="segmented" role="group" aria-label="Representación del texto"><button type="button" data-text-mode="raw" class="active" aria-pressed="true">Original</button><button type="button" data-text-mode="normalized" aria-pressed="false">Normalizado</button></div></div>
+                  <div class="transcription-controls"><label for="transcriptionView">Ver<select id="transcriptionView"><optgroup label="Tres"><option value="all">Las tres transcripciones</option></optgroup><optgroup label="Dos"><option value="reference-base">Humana + base</option><option value="reference-tuned">Humana + ajustada</option><option value="base-tuned">Base + ajustada</option></optgroup><optgroup label="Una"><option value="reference">Referencia humana</option><option value="base">Modelo base</option><option value="tuned">Modelo ajustado</option></optgroup></select></label></div>
+                  <p id="normalizationNote" class="normalization-note hidden"></p>
+                  <div class="text-grid" data-count="3"><section id="referencePane"><div class="text-heading"><h5>Referencia humana</h5><button id="copyReference" type="button" title="Copiar referencia" aria-label="Copiar referencia">Copiar</button></div><p class="text-status" aria-hidden="true"></p><pre id="referenceText"></pre></section><section id="basePane"><div class="text-heading"><h5>Modelo base</h5><button id="copyBase" type="button" title="Copiar transcripción base" aria-label="Copiar transcripción base">Copiar</button></div><p id="baseTextStatus" class="text-status"></p><pre id="baseText"></pre></section><section id="predictionPane"><div class="text-heading"><h5 id="predictionLabel">Modelo ajustado</h5><button id="copyPrediction" type="button" title="Copiar transcripción ajustada" aria-label="Copiar transcripción ajustada">Copiar</button></div><p id="predictionTextStatus" class="text-status"></p><pre id="predictionText"></pre></section></div>
+                </section>
+              </div>
+
+              <details id="diffDetails" class="diff-details" open><summary>Comparación</summary><div class="alignment-controls"><label>Referencia<select id="diffReference"><option value="reference">Referencia humana</option><option value="base">Modelo base</option><option value="tuned">Modelo ajustado</option></select></label><button id="swapComparison" type="button" title="Intercambiar textos" aria-label="Intercambiar referencia y texto comparado">⇄</button><label>Comparar con<select id="diffCompared"><option value="reference">Referencia humana</option><option value="base">Modelo base</option><option value="tuned" selected>Modelo ajustado</option></select></label><label class="changes-toggle"><input id="showOnlyChanges" type="checkbox"> Sólo diferencias</label></div><div class="diff-meta"><p id="alignmentStatus" aria-live="polite"></p><div class="diff-legend"><span><del>Omitido</del> de la referencia</span><span><ins>Añadido</ins> en el texto comparado</span></div></div><div id="diffText" class="diff-text" tabindex="0" role="region" aria-label="Comparación de dos transcripciones"></div></details>
+
+              <details id="linesDetails" class="lines-details"><summary><span id="linesTitle">Recortes de líneas</span><span id="linesCount" class="quiet"></span></summary><p id="linesNote" class="context-note">Cada recorte conserva su propia referencia humana; su concatenación puede diferir de la referencia de la página.</p><div class="lines-toolbar"><label for="lineSearch">Buscar en las referencias de línea</label><input id="lineSearch" type="search" placeholder="Texto o identificador…" autocomplete="off"><span id="lineRange" class="quiet"></span></div><div id="lineGallery" class="line-gallery"></div><div class="line-pagination"><button id="linesPrevious" type="button">← Anteriores</button><button id="linesNext" type="button">Siguientes →</button></div></details>
+            </div>
+          </article>
+        </div>
+      </section>
+      <footer><span>Qwen–Berrutti</span></footer>
+    </main>
+    <dialog id="imageDialog" class="image-dialog"><div class="dialog-heading"><h2 id="dialogTitle">Imagen ampliada</h2><a id="originalImageLink" href="#" target="_blank" rel="noopener">Abrir original ↗</a><button id="closeImageDialog" type="button" aria-label="Cerrar imagen">Cerrar ×</button></div><div class="dialog-image-frame"><img id="dialogImage" alt=""></div></dialog>
+    <div id="fatalError" class="fatal-error hidden" role="alert"></div>
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+  </body>
+</html>

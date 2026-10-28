@@ -1,0 +1,1 @@
+../../finetune/recipes/berrutti_qwen38/run_luisa_mix.sbatch

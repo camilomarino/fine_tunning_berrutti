@@ -11,4 +11,23 @@ runs/
 checkpoints/
 artifacts/
 *.log
+/results/
+.env
+.env.*
+!.env.example
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.sqlite
+*.sqlite3
+*.sqlite3-*
 
+# Data documentation/code are tracked; payloads and machine locations are private.
+/data/locations.local.json
+/data/*/releases/
+/data/*/.staging/
+/data/*/current
+/data/*/local
+/data/*/remote.json
+/data/*/import-*.json

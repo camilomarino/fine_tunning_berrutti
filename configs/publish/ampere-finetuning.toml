@@ -1,0 +1,14 @@
+schema_version = 2
+
+[publish]
+host = "ampere"
+destination = "/iie/home01/cmarino/webdocs/ocr/qwen_berrutti_finetuning"
+mutation_policy = "transactional"
+keep_releases = 2
+stale_lock_seconds = 86400
+stale_upload_seconds = 86400
+command_timeout_seconds = 7200
+
+# Separate fine-tuning viewer. The benchmark's frozen v2/v4 remain untouched.
+# Use berrutti_benchmark's canonical doctor/publish CLI. Publication is dry-run
+# until the exact destination, release ID and manifest SHA-256 are approved.

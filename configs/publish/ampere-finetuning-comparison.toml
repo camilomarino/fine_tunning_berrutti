@@ -1,0 +1,13 @@
+schema_version = 2
+
+[publish]
+host = "ampere"
+destination = "/iie/home01/cmarino/webdocs/ocr/qwen_berrutti_comparison"
+mutation_policy = "transactional"
+keep_releases = 2
+stale_lock_seconds = 86400
+stale_upload_seconds = 86400
+command_timeout_seconds = 7200
+
+# Dedicated audited-results publication; the older viewer stays independent.
+# Activation requires approval of the exact release and manifest SHA-256.
